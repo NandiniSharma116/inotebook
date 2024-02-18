@@ -8,6 +8,7 @@ const AddNote = () => {
   const handleClick = (e) =>{
     e.preventDefault();
     addNote(note.title, note.description, "General");
+    setNote({title: "", description: "", tag: ""})
   }
   const onChange = (e) => {
     setNote({
@@ -24,6 +25,7 @@ const AddNote = () => {
             Title
           </label>
           <input
+          value={note.title}
             type="text"
             className="form-control"
             id="title"
@@ -37,6 +39,7 @@ const AddNote = () => {
             Tag
           </label>
           <input
+          value={note.tag}
             type="text"
             className="form-control"
             id="tag"
@@ -49,9 +52,9 @@ const AddNote = () => {
           <label htmlFor="description" className="form-label">
             Description
           </label>
-          <textarea name='description' className="form-control" id="description" rows="3" onChange={onChange}></textarea>
+          <textarea value={note.description} name='description' className="form-control" id="description" rows="3" onChange={onChange}></textarea>
         </div>
-        <button onClick={handleClick} type="submit" className="btn btn-warning text-white">
+        <button disabled={note.title.length<5||note.description.length<5?true:false} onClick={handleClick} type="submit" className="btn btn-warning text-white">
           <strong>Add Note</strong>
         </button>
       </form>
