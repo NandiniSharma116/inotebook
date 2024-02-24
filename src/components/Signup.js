@@ -15,7 +15,6 @@ const Signup = (props) => {
     e.preventDefault();
     try {
       const { name, email, password } = credentials;
-      console.log(name, email, password);
       const response = await fetch("http://localhost:5000/api/auth/createuser", {
         method: "POST",
         headers: {
@@ -25,17 +24,16 @@ const Signup = (props) => {
       });
 
       const json = await response.json();
-      console.log(json);
       if (json.success) {
         // Save the auth-token and redirect
-        localStorage.setItem('token', json.authtoken);
+        localStorage.setItem('token', json.authToken);
         history("/");
         props.changeAlert("Successfully created an account", "success");
       } else {
         props.changeAlert("credentials provided are wrong", "danger");
       }
     } catch (error) {
-      console.error("Error during fetch:", error);
+      props.changeAlert(error, "danger");
     }
   };
 

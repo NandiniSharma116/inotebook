@@ -17,11 +17,10 @@ const Login = (props) => {
       });
   
       const json = await response.json();
-      console.log(json);
       if (json.success)
       {
         //Save the auth-token and redirect
-        localStorage.setItem('token', json.authtoken);
+        localStorage.setItem('token', json.authToken);
         history("/");
         props.changeAlert("Successfully Logged in to your account", "success")
       }
@@ -30,7 +29,7 @@ const Login = (props) => {
         props.changeAlert("Entered credentials are wrong", "danger");
       }
     } catch (error) {
-      console.error("Error during fetch:", error);
+      props.changeAlert("Error during fetch", "danger");
     }
   };
 
@@ -44,7 +43,7 @@ const Login = (props) => {
     <>
       <form className="p-5" onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label for="exampleInputEmail1" className="form-label">
+          <label htmlFor="exampleInputEmail1" className="form-label">
             Email address
           </label>
           <input
@@ -61,7 +60,7 @@ const Login = (props) => {
           </div>
         </div>
         <div className="mb-3">
-          <label for="exampleInputPassword1" className="form-label">
+          <label htmlFor="exampleInputPassword1" className="form-label">
             Password
           </label>
           <input
