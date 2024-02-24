@@ -15,20 +15,22 @@ const Notes = (props) => {
     // eslint-disable-next-line
   }, []);
 
-  const updateNote = (currentNote) => {
-    setNote({
+  const updateNote = async(currentNote) => {
+     setNote({
       id: currentNote._id,
       etitle: currentNote.title,
       edescription: currentNote.description,
       etag: currentNote.tag
     });
     ref.current.click();
+   
   };
 
   const handleClick = (e) => {
     console.log("Updating the note ", note);
     editNote(note.id, note.etitle, note.edescription, note.etag);
     refClose.current.click();
+    props.changeAlert("Updated Successfully", "warning");
   };
 
   const onChange = (e) => {
@@ -139,7 +141,7 @@ const Notes = (props) => {
         {notes.length===0&&'No notes to display'}
         </div>
         {notes.map((note) => {
-          return <NoteItem updateNote={updateNote} note={note} key={note.id} />;
+          return <NoteItem changeAlert={props.changeAlert} updateNote={updateNote} note={note} key={note.id} />;
         })}
       </div>
     </>

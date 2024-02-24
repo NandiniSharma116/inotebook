@@ -16,8 +16,8 @@ function App() {
       msg: msg,
       type: type
     });
-    setInterval(()=>{
-      setAlert({msg:null, type:""})
+    setInterval(() => {
+      setAlert({ msg: null, type: "" });
     }, 3000)
   };
 
