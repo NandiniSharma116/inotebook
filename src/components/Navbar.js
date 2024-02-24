@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 
@@ -39,8 +39,8 @@ const Navbar = () => {
             </li>
           </ul>
           <form className="d-flex" role="search">
-          <Link class="btn btn-dark mx-2" to="/signup" role="button">Signup</Link>
-            <Link class="btn btn-light mx-2" to="/login" role="button">Login</Link>
+          <Link className="btn btn-light mx-2" to="/signup" role="button">Signup</Link>
+            <Link className="btn btn-light mx-2" to="/login" role="button">Login</Link>
           </form>
         </div>
       </div>

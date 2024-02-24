@@ -3,7 +3,7 @@ import NoteContext from "../context/notes/NoteContext";
 import NoteItem from "./NoteItem";
 import AddNote from "./AddNote";
 
-const Notes = () => {
+const Notes = (props) => {
   const ref = useRef(null);
   const refClose = useRef(null);
   const context = useContext(NoteContext);
@@ -40,7 +40,7 @@ const Notes = () => {
 
   return (
     <>
-      <AddNote />
+      <AddNote changeAlert={props.changeAlert}/>
       <button
         ref={ref}
         type="button"

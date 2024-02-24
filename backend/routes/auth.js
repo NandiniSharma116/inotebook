@@ -18,9 +18,10 @@ router.post(
   ],
   async (req, res) => {
     //If there are error, then return a bad request and the error
+    let success = false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({success, errors: errors.array() });
     }
     //Check whether the user with the same email exists already or not
     try {
@@ -28,7 +29,7 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ error: "User with the same email already exists" });
+          .json({success, error: "User with the same email already exists" });
       }
       const salt = await bcrypt.genSalt(10);
       let secPass = await bcrypt.hash(req.body.password, salt);
@@ -43,8 +44,9 @@ router.post(
           id: user.id,
         },
       };
+      success = true;
       const authToken = jwt.sign(data, JWT_SECRET);
-      res.json({ authToken: authToken });
+      res.json({ success, authToken: authToken });
 
       // .then(user=>res.json(user))
       // .catch(err=>{console.log(err); res.json({error: "Please enter a unique username"})});
@@ -66,6 +68,7 @@ router.post(
     body("password", "Password cannot be blank").exists(),
   ],
   async (req, res) => {
+    let success = false;
     //If there are error, then return a bad request and the error
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -83,15 +86,16 @@ router.post(
       if (!passCompare) {
         res
           .status(400)
-          .json({ message: "Entered creadentials is wrong. Try Again!" });
+          .json({success: success, message: "Entered creadentials is wrong. Try Again!" });
       }
       const data = {
         user: {
           id: user.id,
         },
       };
+      success = true;
       const authToken = jwt.sign(data, JWT_SECRET);
-      res.json({ authToken: authToken });
+      res.json({ success: success, authToken: authToken });
     } catch (error) {
       console.log(error.message);
       res.status(500).json({ error: "Internal error has occurred" });
